@@ -13,4 +13,5 @@ class Order(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.TextField()
-    delivery_type = models.CharField(max_length=10, choices=DeliveryType.choices, default=DeliveryType.REGULAR)
+    delivery_type = models.CharField(max_length=255, choices=DeliveryType.choices, default=DeliveryType.REGULAR)
+    creator = models.ForeignKey('auth_user_api.User', on_delete=models.CASCADE)

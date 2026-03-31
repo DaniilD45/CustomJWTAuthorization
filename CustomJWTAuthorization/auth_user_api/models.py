@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from orders_api.models import DeliveryType
+
 
 class User(AbstractUser):
     class Meta:
@@ -30,3 +32,13 @@ class Role(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+
+
+class AccessRule(models.Model):
+    class Meta:
+        verbose_name = 'AccessRule'
+        verbose_name_plural = 'AccessRules'
+        unique_together = (('role', 'type'),)
+
+    role = models.ForeignKey('Role', on_delete=models.CASCADE)
+    type = models.CharField(max_length=255, choices=DeliveryType.choices, default=DeliveryType.REGULAR)
