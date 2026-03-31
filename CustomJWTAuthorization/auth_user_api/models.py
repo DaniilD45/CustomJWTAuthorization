@@ -7,6 +7,7 @@ class User(AbstractUser):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
+    email = models.EmailField(unique=True)
     role = models.ForeignKey(
         'Role',
         on_delete=models.SET_NULL,
@@ -20,3 +21,12 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class Role(models.Model):
+    class Meta:
+        verbose_name = 'Role'
+        verbose_name_plural = 'Roles'
+
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
