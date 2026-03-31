@@ -1,3 +1,16 @@
 from django.db import models
 
-# Create your models here.
+
+class DeliveryType(models.TextChoices):
+    REGULAR = 'regular', 'Обычная'
+    SPECIAL = 'special', 'Специальная'
+
+
+class Order(models.Model):
+    class Meta:
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
+
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    delivery_type = models.CharField(max_length=10, choices=DeliveryType.choices, default=DeliveryType.REGULAR)
