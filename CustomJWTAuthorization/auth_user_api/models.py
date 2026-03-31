@@ -42,3 +42,15 @@ class AccessRule(models.Model):
 
     role = models.ForeignKey('Role', on_delete=models.CASCADE)
     type = models.CharField(max_length=255, choices=DeliveryType.choices, default=DeliveryType.REGULAR)
+
+
+class RefreshToken(models.Model):
+    class Meta:
+        verbose_name = 'RefreshToken'
+        verbose_name_plural = 'RefreshTokens'
+
+    token = models.TextField(unique=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
